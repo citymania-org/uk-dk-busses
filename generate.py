@@ -39,6 +39,10 @@ RoadVehicle(
     cargo_capacity=90,
     default_cargo_type=0,
     cost_factor=246,
+    additional_text=lib.fake_info_text({
+        'Manufacturer': 'Dennis Specialist Vehicles',
+        'Operator': 'Arriva',
+    })
 )
 
 

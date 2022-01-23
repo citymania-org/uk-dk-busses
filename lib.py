@@ -33,15 +33,24 @@ def fake_info_text(props):
     return '{}'.join('{BLACK}' + k + ': {GOLD}' + v for k, v in props.items())
 
 
+def kmhishph(speed):
+    return speed * 2
+
+# TODO doesn't show exact mph in the game
+def mph(speed):
+    return (speed * 16 + 4) // 5
+
+
 class RoadVehicle(grf.SpriteGenerator):
-    def __init__(self, *, id, name, sprites, additional_text=None, **props):
+    def __init__(self, *, id, name, sprites, max_speed, additional_text=None, **props):
         if len(sprites) != 8:
             raise ValueError(f'RoadVehicle expects 8 sprites, found {len(sprites)}')
         self.id = id
         self.sprites = sprites
         self.name = name
-        self.props = props
+        self.max_speed = max_speed
         self.additional_text = additional_text
+        self.props = props
 
     def get_sprites(self):
         res = [
@@ -57,6 +66,8 @@ class RoadVehicle(grf.SpriteGenerator):
                 count=1,
                 props={
                     'sprite_id': 0xff,
+                    'precise_max_speed': min(self.max_speed, 0xff),
+                    'max_speed': min(self.max_speed // 4, 0xff),
                     **self.props
                 }
             ),
@@ -73,7 +84,7 @@ class RoadVehicle(grf.SpriteGenerator):
                 ent2=(0,),
             ),
         ]
-        maps = []
+        callbacks = {0: grf.Ref(0)}
         if self.additional_text:
             string_id = 0xd000 + self.id
             res.append(grf.Action4(
@@ -82,13 +93,26 @@ class RoadVehicle(grf.SpriteGenerator):
                 is_generic_offset=True,
                 strings=[grf_compile_string(self.additional_text)],
             ))
+            callbacks[0x23] = grf.CB(string_id - 0xd000)
+
+        if self.max_speed >= 0x400:
+            res.append(grf.VarAction2(
+                feature=grf.RV,
+                ref_id=3,
+                ranges={
+                    0x15: grf.CB(self.max_speed // 4),
+                },
+                default=grf.Ref(0),
+                code='var(16, 0, 255)',
+            ))
+            callbacks[0x36] = grf.Ref(3)
+
+        maps = []
+        if len(callbacks) > 1:
             res.append(grf.VarAction2(
                 feature=grf.RV,
                 ref_id=2,
-                ranges={
-                    0: grf.Ref(0),
-                    0x23: grf.CB(string_id - 0xd000),
-                },
+                ranges=callbacks,
                 default=grf.Ref(0),
                 code='current_callback',
             ))

@@ -31,6 +31,8 @@ RoadVehicle(
     id=5,
     name='Dennis Dart Plaxton Pointer 2',
     sprites=tmpl_rv(0, 60, lambda *args, **kw: grf.FileSprite(plaxton_pointer_png, *args, **kw, bpp=24)),
+    max_speed=lib.kmhishph(104),
+    power=255,
     introduction_date=date(1996, 1, 1),
     vehicle_life=8,
     model_life=144,

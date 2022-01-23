@@ -9,7 +9,6 @@ def grf_compile_string(s):
     nstr = NewGRFString(s, default_lang, '')
     value = nstr.parse_string('ascii', default_lang, 1, {}).encode('utf-8')
     res = b''
-    print(value)
 
     i = 0
     while i < len(value):
@@ -39,6 +38,26 @@ def kmhishph(speed):
 # TODO doesn't show exact mph in the game
 def mph(speed):
     return (speed * 16 + 4) // 5
+
+
+def make_cb_switches(callbacks, maps, layout):
+    # TODO combine similar switches?
+    out_maps = {}
+    for k, cblist in maps.items():
+        if not cblist: continue
+        out_maps[k] = grf.VarAction2(
+            ranges={0: layout, **cblist},
+            default=layout,
+            code='current_callback',
+        )
+    default = layout
+    if callbacks:
+        default = grf.VarAction2(
+            ranges={0: layout, **callbacks},
+            default=layout,
+            code='current_callback',
+        )
+    return default, out_maps
 
 
 class RoadVehicle(grf.SpriteGenerator):
@@ -77,14 +96,16 @@ class RoadVehicle(grf.SpriteGenerator):
                 sprite_count=8,
             ),
             *self.sprites,
-            grf.GenericSpriteLayout(
-                feature=grf.RV,
-                ref_id=0,
-                ent1=(0,),
-                ent2=(0,),
-            ),
         ]
-        callbacks = {0: grf.Ref(0)}
+
+        layout = grf.GenericSpriteLayout(
+            ent1=(0,),
+            ent2=(0,),
+        )
+
+        purchase_callbacks = {}
+        callbacks = {}
+
         if self.additional_text:
             string_id = 0xd000 + self.id
             res.append(grf.Action4(
@@ -93,35 +114,22 @@ class RoadVehicle(grf.SpriteGenerator):
                 is_generic_offset=True,
                 strings=[grf_compile_string(self.additional_text)],
             ))
-            callbacks[0x23] = grf.CB(string_id - 0xd000)
+            purchase_callbacks[0x23] = string_id - 0xd000
 
         if self.max_speed >= 0x400:
-            res.append(grf.VarAction2(
-                feature=grf.RV,
-                ref_id=3,
+            callbacks[0x36] = purchase_callbacks[0x36] = grf.VarAction2(
                 ranges={
-                    0x15: grf.CB(self.max_speed // 4),
+                    0x15: self.max_speed // 4,
                 },
-                default=grf.Ref(0),
+                default=layout,
                 code='var(16, 0, 255)',
-            ))
-            callbacks[0x36] = grf.Ref(3)
+            )
 
-        maps = []
-        if len(callbacks) > 1:
-            res.append(grf.VarAction2(
-                feature=grf.RV,
-                ref_id=2,
-                ranges=callbacks,
-                default=grf.Ref(0),
-                code='current_callback',
-            ))
-            maps = [[255, 2]]
-
+        default, maps = make_cb_switches(callbacks, {255: purchase_callbacks}, layout)
         res.append(grf.Action3(
             feature=grf.RV,
             ids=[self.id],
             maps=maps,
-            default=grf.Ref(0),
+            default=default,
         ))
         return res

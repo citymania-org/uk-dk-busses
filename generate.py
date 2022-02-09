@@ -10,6 +10,7 @@ g = grf.NewGRF(
     'Brilliant British Busses',
     'Brilliant British Busses',
 )
+g.strings = lib.StringManager()
 RoadVehicle = g.bind(lib.RoadVehicle)
 
 def tmpl_rv(x, y, func):
@@ -25,12 +26,54 @@ def tmpl_rv(x, y, func):
     ]
 
 
-plaxton_pointer_png = grf.ImageFile("sprites/UK_1996_Dennis_Dart_Plaxton_Pointer_2_Arriva.png", colourkey=(0, 0, 255))
+optare_vectra_arriva_png = grf.ImageFile('sprites/UK 1991 Optare Vecta (Arriva).png', colourkey=(0, 0, 255))
+optare_vectra_tnd_png = grf.ImageFile('sprites/UK 1991 Optare Vecta (Tees And District).png', colourkey=(0, 0, 255))
+
+RoadVehicle(
+    id=4,
+    name='Optare Vecta',
+    liveries = [
+        {
+            'name': ' (Arriva)',
+            'sprites': tmpl_rv(0, 0, lambda *args, **kw: grf.FileSprite(optare_vectra_arriva_png, *args, **kw, bpp=24)),
+        },
+        {
+            'name': ' (Tees and District)',
+            'sprites': tmpl_rv(0, 0, lambda *args, **kw: grf.FileSprite(optare_vectra_tnd_png, *args, **kw, bpp=24)),
+        },
+    ],
+    max_speed=lib.kmhishph(104),
+    power=255,
+    introduction_date=date(1991, 1, 1),
+    vehicle_life=8,
+    model_life=144,
+    climates_available=grf.TEMPERATE | grf.ARCTIC | grf.TROPICAL,
+    running_cost_factor=222,
+    cargo_capacity=90,
+    default_cargo_type=0,
+    cost_factor=246,
+    refittable_cargo_types=1,
+    additional_text=lib.fake_info_text({
+        'Manufacturer': 'Optare',
+    }),
+)
+
+
+plaxton_pointer_arriva_png = grf.ImageFile('sprites/UK 1996 Dennis Dart Plaxton Pointer 2 (Arriva).png', colourkey=(0, 0, 255))
 
 RoadVehicle(
     id=5,
     name='Dennis Dart Plaxton Pointer 2',
-    sprites=tmpl_rv(0, 60, lambda *args, **kw: grf.FileSprite(plaxton_pointer_png, *args, **kw, bpp=24)),
+    liveries = [
+        {
+            'name': ' (Arriva)',
+            'sprites': tmpl_rv(0, 0, lambda *args, **kw: grf.FileSprite(plaxton_pointer_arriva_png, *args, **kw, bpp=24)),
+        },
+        {
+            'name': ' (Test)',
+            'sprites': tmpl_rv(0, 0, lambda *args, **kw: grf.FileSprite(plaxton_pointer_arriva_png, *args, **kw, bpp=24)),
+        },
+    ],
     max_speed=lib.kmhishph(104),
     power=255,
     introduction_date=date(1996, 1, 1),
@@ -41,11 +84,12 @@ RoadVehicle(
     cargo_capacity=90,
     default_cargo_type=0,
     cost_factor=246,
+    refittable_cargo_types=1,
     additional_text=lib.fake_info_text({
         'Manufacturer': 'Dennis Specialist Vehicles',
         'Operator': 'Arriva',
-    })
+    }),
 )
 
-
+g.add(g.strings)
 g.write('brilliant_british_busses.grf')

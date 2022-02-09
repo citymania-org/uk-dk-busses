@@ -60,18 +60,48 @@ def make_cb_switches(callbacks, maps, layout):
     return default, out_maps
 
 
+class StringManager(grf.SpriteGenerator):
+    def __init__(self):
+        self.strings = []
+
+    def add(self, string):
+        string_id = len(self.strings)
+        self.strings.append(grf_compile_string(string))
+        return string_id
+
+    def get_sprites(self, g):
+        return [grf.Action4(
+            feature=grf.RV,
+            offset=0xd000,
+            is_generic_offset=True,
+            strings=self.strings,
+        )]
+
+
 class RoadVehicle(grf.SpriteGenerator):
-    def __init__(self, *, id, name, sprites, max_speed, additional_text=None, **props):
-        if len(sprites) != 8:
-            raise ValueError(f'RoadVehicle expects 8 sprites, found {len(sprites)}')
+    def __init__(self, *, id, name, liveries, max_speed, additional_text=None, livery_refits=None, **props):
+        for l in liveries:
+            if 'name' not in l:
+                raise ValueError(f'RoadVehicle livery is missing the name')
+            sprites = l.get('sprites')
+            if sprites is None:
+                raise ValueError(f'RoadVehicle livery {l["name"]} is missing sprites')
+            if len(sprites) != 8:
+                raise ValueError(f'RoadVehicle livery expects 8 sprites, found {len(sprites)}')
+
         self.id = id
-        self.sprites = sprites
         self.name = name
         self.max_speed = max_speed
         self.additional_text = additional_text
+        self.liveries = liveries
         self.props = props
 
-    def get_sprites(self):
+    def get_sprites(self, g):
+        cb_flags = 0
+
+        purchase_callbacks = {}
+        callbacks = {}
+
         res = [
             grf.Action4(
                 feature=grf.RV,
@@ -79,42 +109,12 @@ class RoadVehicle(grf.SpriteGenerator):
                 is_generic_offset=False,
                 strings=[self.name.encode('utf-8')]
             ),
-            grf.Action0(
-                feature=grf.RV,
-                first_id=self.id,
-                count=1,
-                props={
-                    'sprite_id': 0xff,
-                    'precise_max_speed': min(self.max_speed, 0xff),
-                    'max_speed': min(self.max_speed // 4, 0xff),
-                    **self.props
-                }
-            ),
-            grf.Action1(
-                feature=grf.RV,
-                set_count=1,
-                sprite_count=8,
-            ),
-            *self.sprites,
         ]
-
-        layout = grf.GenericSpriteLayout(
-            ent1=(0,),
-            ent2=(0,),
-        )
-
-        purchase_callbacks = {}
-        callbacks = {}
 
         if self.additional_text:
             string_id = 0xd000 + self.id
-            res.append(grf.Action4(
-                feature=grf.RV,
-                offset=string_id,
-                is_generic_offset=True,
-                strings=[grf_compile_string(self.additional_text)],
-            ))
-            purchase_callbacks[0x23] = string_id - 0xd000
+
+            purchase_callbacks[0x23] = g.strings.add(self.additional_text)
 
         if self.max_speed >= 0x400:
             callbacks[0x36] = purchase_callbacks[0x36] = grf.VarAction2(
@@ -124,6 +124,51 @@ class RoadVehicle(grf.SpriteGenerator):
                 default=layout,
                 code='var(16, 0, 255)',
             )
+
+        # Liveries
+        callbacks[0x19] = grf.VarAction2(
+            ranges={i: g.strings.add(l['name']) for i, l in enumerate(self.liveries)},
+            default=0x400,
+            code='cargo_subtype',
+        )
+        cb_flags |= 0x20
+
+        if cb_flags:
+            self.props['cb_flags'] = self.props.get('cb_flags', 0) | cb_flags
+
+        res.append(grf.Action0(
+            feature=grf.RV,
+            first_id=self.id,
+            count=1,
+            props={
+                'sprite_id': 0xff,
+                'precise_max_speed': min(self.max_speed, 0xff),
+                'max_speed': min(self.max_speed // 4, 0xff),
+                **self.props
+            }
+        ))
+        res.append(grf.Action1(
+            feature=grf.RV,
+            set_count=len(self.liveries),
+            sprite_count=8,
+        ))
+
+        for l in self.liveries:
+            res.extend(l['sprites'])
+
+        layouts = []
+        for i, l in enumerate(self.liveries):
+            layouts.append(grf.GenericSpriteLayout(
+                ent1=(i,),
+                ent2=(i,),
+            ))
+
+        layout = grf.VarAction2(
+            related_scope=True,
+            ranges=dict(enumerate(layouts)),
+            default=layouts[0],
+            code='cargo_subtype',
+        )
 
         default, maps = make_cb_switches(callbacks, {255: purchase_callbacks}, layout)
         res.append(grf.Action3(

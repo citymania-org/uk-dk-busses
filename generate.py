@@ -47,7 +47,7 @@ RoadVehicle(
     introduction_date=date(1991, 1, 1),
     vehicle_life=8,
     model_life=144,
-    climates_available=grf.TEMPERATE | grf.ARCTIC | grf.TROPICAL,
+    climates_available=grf.ALL_CLIMATES,
     running_cost_factor=222,
     cargo_capacity=90,
     default_cargo_type=0,
@@ -79,7 +79,7 @@ RoadVehicle(
     introduction_date=date(1996, 1, 1),
     vehicle_life=8,
     model_life=144,
-    climates_available=grf.TEMPERATE | grf.ARCTIC | grf.TROPICAL,
+    climates_available=grf.ALL_CLIMATES,
     running_cost_factor=222,
     cargo_capacity=90,
     default_cargo_type=0,
@@ -87,6 +87,50 @@ RoadVehicle(
     refittable_cargo_types=1,
     additional_text=lib.fake_info_text({
         'Manufacturer': 'Dennis Specialist Vehicles',
+        'Operator': 'Arriva',
+    }),
+)
+
+def tmpl_rv_vox(x, y, func):
+    return [
+        func(      x, y, 10, 22, xofs= -4, yofs=-10),
+        func( x + 18, y, 26, 20, xofs=-18, yofs=-9),
+        func( x + 52, y, 27, 13, xofs=-18, yofs=-6),
+        func( x + 87, y, 26, 20, xofs=-10, yofs=-10),
+        func(x + 121, y, 10, 22, xofs= -4, yofs=-10),
+        func(x + 139, y, 26, 20, xofs=-16, yofs=-11),
+        func(x + 173, y, 27, 13, xofs=-18, yofs=-6),
+        func(x + 208, y, 26, 20, xofs= -6, yofs=-10),
+    ]
+
+alx1000_arriva_png = grf.ImageFile('sprites/UK_1997_Mercedes_Benz_Vario_Alexander_ALX100_(Arriva).png')
+
+RoadVehicle(
+    id=6,
+    name='Alexander ALX1000',
+    liveries = [
+        {
+            'name': ' (Arriva)',
+            'sprites': tmpl_rv_vox(0, 0, lambda *args, **kw: grf.FileSprite(alx1000_arriva_png, *args, **kw, bpp=32)),
+        },
+        {
+            'name': ' (Arriva)',
+            'sprites': tmpl_rv_vox(0, 0, lambda *args, **kw: grf.FileSprite(alx1000_arriva_png, *args, **kw, bpp=32)),
+        },
+    ],
+    max_speed=lib.kmhishph(104),
+    power=255,
+    introduction_date=date(1997, 1, 1),
+    vehicle_life=8,
+    model_life=144,
+    climates_available=grf.ALL_CLIMATES,
+    running_cost_factor=222,
+    cargo_capacity=90,
+    default_cargo_type=0,
+    cost_factor=246,
+    refittable_cargo_types=1,
+    additional_text=lib.fake_info_text({
+        'Manufacturer': 'Alexander',
         'Operator': 'Arriva',
     }),
 )

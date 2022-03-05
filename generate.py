@@ -108,7 +108,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     additional_text=lib.fake_info_text({
         'Manufacturer': 'Dennis Specialist Vehicles',
-        'Operator': 'Arriva',
+        'Operator': 'Various',
     }),
 )
 
@@ -158,4 +158,4 @@ RoadVehicle(
 )
 
 g.add(g.strings)
-g.write('brilliant_british_busses.grf')
+g.write('robs_british_busses.grf')

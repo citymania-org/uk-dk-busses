@@ -1,2 +1,2 @@
-# uk-dk-busses
-Brilliant British Busses and Dazzling Danish Busses
+# uk-busses
+Rob's British Busses

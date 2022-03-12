@@ -37,13 +37,14 @@ def make_vox_liveries(liveries):
 
 
 RoadVehicle(
-    id=1,
+    id=501,
     name='Leyland National',
     liveries = make_vox_liveries({
         '(White)': 'UK_1972_Leyland_National_(white)_32bpp.png',
         '(Red)': 'UK_1972_Leyland_National_(red)_32bpp.png',
         '(Dark Green)': 'UK_1972_Leyland_National_(dark_green)_32bpp.png',
         '(Bournemouth Transport)': 'UK_1972_Leyland_National_(Bournemouth_Transport)_32bpp.png',
+        '(Greater Manchester Transport)': 'UK_1972_Leyland_National_(Greater_Manchester_Transport)_32bpp.png',
         '(Stagecoach)': 'UK_1972_Leyland_National_(Stagecoach)_32bpp.png',
         '(Tees And District)': 'UK_1972_Leyland_National_(Tees_And_District)_32bpp.png',
         '(Tees And District Late)': 'UK_1972_Leyland_National_(Tees_And_District_Late)_32bpp.png',
@@ -60,13 +61,14 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=1721,
     additional_text=lib.fake_info_text({
         'Info': 'Leyland',
     }),
 )
 
 RoadVehicle(
-    id=2,
+    id=502,
     name='Leyland National 2',
     liveries = make_vox_liveries({
         '(White)': 'UK_1979_Leyland_National_2_(white)_32bpp.png',
@@ -88,13 +90,14 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=1791,
     additional_text=lib.fake_info_text({
         'Info': 'Leyland',
     }),
 )
 
 RoadVehicle(
-    id=3,
+    id=503,
     name='Bristol VR',
     liveries = make_vox_liveries({
         '(White)': 'UK_1968_Bristol_VR_(white)_32bpp.png',
@@ -115,13 +118,14 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=4181,
     additional_text=lib.fake_info_text({
         'Info': 'Bristol',
     }),
 )
 
 RoadVehicle(
-    id=4,
+    id=504,
     name='MAN 11.190 Optare Vecta',
     liveries = make_vox_liveries({
         '(White)': 'UK_1991_MAN_11_190_Optare_Vecta_(white)_32bpp.png',
@@ -142,13 +146,14 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=1913,
     additional_text=lib.fake_info_text({
         'Info': 'MAN',
     }),
 )
 
 RoadVehicle(
-    id=5,
+    id=505,
     name='Dennis Dart Plaxton Pointer',
     liveries = make_vox_liveries({
         '(White)': 'UK_1991_Dennis_Dart_Plaxton_Pointer_(white)_32bpp.png',
@@ -173,13 +178,14 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=1912,
     additional_text=lib.fake_info_text({
         'Info': 'Dennis Specialist Vehicles',
     }),
 )
 
 RoadVehicle(
-    id=6,
+    id=506,
     name='Mercedes-Benz Vario Alexander ALX100',
     liveries = make_vox_liveries({
         '(White)': 'UK_1997_Mercedes-Benz_Vario_Alexander_ALX100_(white)_32bpp.png',
@@ -190,7 +196,7 @@ RoadVehicle(
     }),
     max_speed=lib.kmhishph(104),
     power=255,
-    introduction_date=date(1997, 1, 1),
+    introduction_date=date(1996, 1, 1),
     vehicle_life=8,
     model_life=144,
     climates_available=grf.ALL_CLIMATES,
@@ -200,13 +206,14 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=1961,
     additional_text=lib.fake_info_text({
         'Info': 'Mercedes-Benz',
     }),
 )
 
 RoadVehicle(
-    id=7,
+    id=507,
     name='Bristol LH',
     liveries = make_vox_liveries({
         '(White)': 'UK_1967_Bristol_LH_(white)_32bpp.png',
@@ -227,13 +234,14 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=4171,
     additional_text=lib.fake_info_text({
         'Info': 'Bristol',
     }),
 )
 
 RoadVehicle(
-    id=8,
+    id=508,
     name='Leyland Olympian ECW',
     liveries = make_vox_liveries({
         '(White)': 'UK_1980_Leyland_Olympian_ECW_(white)_32bpp.png',
@@ -256,13 +264,14 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=4301,
     additional_text=lib.fake_info_text({
         'Info': 'Leyland',
     }),
 )
 
 RoadVehicle(
-    id=9,
+    id=509,
     name='Volvo B7L Wright Eclipse',
     liveries = make_vox_liveries({
         '(White)': 'UK_1999_Volvo_B7L_Wright_Eclipse_(white)_32bpp.png',
@@ -281,13 +290,14 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=1991,
     additional_text=lib.fake_info_text({
         'Info': 'Volvo',
     }),
 )
 
 RoadVehicle(
-    id=10,
+    id=510,
     name='Volvo B7RLE Wright Eclipse 2',
     liveries = make_vox_liveries({
         '(White)': 'UK_2008_Volvo_B7RLE_Wright_Eclipse_2_(white)_32bpp.png',
@@ -306,13 +316,14 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=2081,
     additional_text=lib.fake_info_text({
         'Info': 'Volvo',
     }),
 )
 
 RoadVehicle(
-    id=11,
+    id=511,
     name='Volvo B8RLE Wright Eclipse 3',
     liveries = make_vox_liveries({
         '(White)': 'UK_2015_Volvo_B8RLE_Wright_Eclipse_3_(white)_32bpp.png',
@@ -331,13 +342,14 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=2151,
     additional_text=lib.fake_info_text({
         'Info': 'Volvo',
     }),
 )
 
 RoadVehicle(
-    id=12,
+    id=512,
     name='Volvo B7TL Wright Eclipse Gemini',
     liveries = make_vox_liveries({
         '(White)': 'UK_2001_Volvo_B7TL_Wright_Eclipse_Gemini_(white)_32bpp.png',
@@ -356,6 +368,7 @@ RoadVehicle(
     cost_factor=246,
     refittable_cargo_types=1,
     sound_effect=0x17,
+    sort_purchase_list=4511,
     additional_text=lib.fake_info_text({
         'Info': 'Volvo',
     }),

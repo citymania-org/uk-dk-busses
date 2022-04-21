@@ -5,10 +5,12 @@ import grf
 import lib
 
 g = grf.NewGRF(
-    b'CMBB',
-    8,
-    'Robs British Busses',
-    'Robs British Busses',
+    grfid='CMBB',
+    name='Robs British Busses',
+    description='Robs British Busses',
+    version=0,
+    min_compatible_version=0,
+    url='https://github.com/citymania-org/uk-dk-busses/',
 )
 g.strings = lib.StringManager()
 RoadVehicle = g.bind(lib.RoadVehicle)

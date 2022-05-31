@@ -17,8 +17,16 @@ RoadVehicle = g.bind(lib.RoadVehicle)
 
 
 def tmpl_rv_vox(filename):
+    mask = None
+    if isinstance(filename, tuple):
+        filename, maskfname = filename
+        mask_png = grf.ImageFile('sprites/' + maskfname)
+        mask = (mask_png, 0, 0)
+        bpp = 32
+    else:
+        bpp = 32 if filename.endswith('_32bpp.png') else 8
     png = grf.ImageFile('sprites/' + filename)
-    func = lambda *args, **kw: grf.FileSprite(png, *args, **kw, bpp=32 if filename.endswith('_32bpp.png') else 8)
+    func = lambda *args, **kw: grf.FileSprite(png, *args, **kw, bpp=bpp, mask=mask)
     return [
         func(  0, 0, 10, 29, xofs=-3, yofs=-16),
         func( 18, 0, 26, 27, xofs=-15, yofs=-16),
@@ -240,6 +248,7 @@ RoadVehicle(
     id=1002,
     name='Leyland Olympian ECW',
     liveries = make_vox_liveries({
+        '(2CC)': ('cc1980_Leyland_Olympian_ECW_(United_Late)_32bpp.png', 'cc1980_Leyland_Olympian_ECW_(United_Late)_mask.png'),
         '(White)': 'UK_1980_Leyland_Olympian_ECW_(white)_32bpp.png',
         '(First)': 'UK_1980_Leyland_Olympian_ECW_(First)_32bpp.png',
         '(Tees And District)': 'UK_1980_Leyland_Olympian_ECW_(Tees_And_District)_32bpp.png',
@@ -248,6 +257,7 @@ RoadVehicle(
         '(United)': 'UK_1980_Leyland_Olympian_ECW_(United)_32bpp.png',
         '(United Late)': 'UK_1980_Leyland_Olympian_ECW_(United_Late)_32bpp.png',
     }),
+    misc_flags=RoadVehicle.Flags.USE_2CC,
     max_speed=lib.kmhishph(104),
     power=255,
     introduction_date=date(1980, 1, 1),

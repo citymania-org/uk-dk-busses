@@ -79,6 +79,10 @@ class StringManager(grf.SpriteGenerator):
 
 
 class RoadVehicle(grf.SpriteGenerator):
+
+    class Flags:
+        USE_2CC = 2
+
     def __init__(self, *, id, name, liveries, max_speed, additional_text=None, livery_refits=None, **props):
         for l in liveries:
             if 'name' not in l:

@@ -130,3 +130,4 @@ dmypy.json
 
 # generated newgrf file
 robs_british_busses.grf
+src/grf/

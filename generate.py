@@ -153,7 +153,6 @@ RoadVehicle(
     id=504,
     name='Dennis Dart Plaxton Pointer',
     liveries = make_vox_liveries({
-        '(CC)': 'zdartcc_8bpp.png',
         '(White)': 'UK_1991_Dennis_Dart_Plaxton_Pointer_(white)_32bpp.png',
         '(Arriva)': 'UK_1991_Dennis_Dart_Plaxton_Pointer_(Arriva)_32bpp.png',
         '(East Yorkshire)': 'UK_1991_Dennis_Dart_Plaxton_Pointer_(East_Yorkshire)_32bpp.png',
@@ -395,7 +394,6 @@ RoadVehicle(
     id=511,
     name='Leyland Lynx',
     liveries = make_vox_liveries({
-        '(CC)': 'zlynxcc_8bpp.png',
         '(White)': 'UK_1986_Leyland_Lynx_(white)_32bpp.png',
         '(Cleveland Transit)': 'UK_1986_Leyland_Lynx_(Cleveland_Transit)_32bpp.png',
     }),

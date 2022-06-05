@@ -2,8 +2,6 @@ from datetime import date
 
 import grf
 
-import lib
-
 g = grf.NewGRF(
     grfid='CMBB',
     name='Robs British Busses',
@@ -12,8 +10,7 @@ g = grf.NewGRF(
     min_compatible_version=0,
     url='https://github.com/citymania-org/uk-dk-busses/',
 )
-g.strings = lib.StringManager()
-RoadVehicle = g.bind(lib.RoadVehicle)
+RoadVehicle = g.bind(grf.RoadVehicle)
 
 
 def tmpl_rv_vox(filename):
@@ -60,7 +57,7 @@ RoadVehicle(
         'Teesside Motor Services Late': 'z1972_Leyland_National_(Teesside_Motor_Services_Late)_32bpp.png',
         'United': 'z1972_Leyland_National_(United)_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1972, 1, 1),
     vehicle_life=8,
@@ -73,7 +70,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=0,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Leyland',
     }),
 )
@@ -88,7 +85,7 @@ RoadVehicle(
         'Tees And District Late': 'z1979_Leyland_National_2_(Tees_And_District_Late)_32bpp.png',
         'United': 'z1979_Leyland_National_2_(United)_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1979, 1, 1),
     vehicle_life=8,
@@ -101,7 +98,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=0,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Leyland',
     }),
 )
@@ -115,7 +112,7 @@ RoadVehicle(
         'Tees And District Late': 'z1968_Bristol_VR_(Tees_And_District_Late)_32bpp.png',
         'United': 'z1968_Bristol_VR_(United)_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1968, 1, 1),
     vehicle_life=8,
@@ -128,7 +125,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=0,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Bristol',
     }),
 )
@@ -143,7 +140,7 @@ RoadVehicle(
         'Tees And District': 'z1991_MAN_11_190_Optare_Vecta_(Tees_And_District_Late)_32bpp.png',
     }),
     misc_flags=RoadVehicle.Flags.USE_2CC,
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1991, 1, 1),
     vehicle_life=8,
@@ -156,7 +153,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=0,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'MAN',
     }),
 )
@@ -176,7 +173,7 @@ RoadVehicle(
         'Stagecoach Late': 'z1991_Dennis_Dart_Plaxton_Pointer_(Stagecoach_Late)_32bpp.png',
     }),
     misc_flags=RoadVehicle.Flags.USE_2CC,
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1991, 1, 1),
     vehicle_life=8,
@@ -189,7 +186,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=503,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Dennis Specialist Vehicles',
     }),
 )
@@ -200,7 +197,7 @@ RoadVehicle(
     liveries = make_vox_liveries({
         'White': 't1997_Mercedes-Benz_Vario_Alexander_ALX100_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1996, 1, 1),
     vehicle_life=8,
@@ -213,7 +210,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=0,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Mercedes-Benz',
     }),
 )
@@ -228,7 +225,7 @@ RoadVehicle(
         'Teesside Motor Services': 'z1967_Bristol_LH_(Teesside_Motor_Services)_32bpp.png',
         'United': 'z1967_Bristol_LH_(United)_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1967, 1, 1),
     vehicle_life=8,
@@ -241,7 +238,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=501,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Bristol',
     }),
 )
@@ -260,7 +257,7 @@ RoadVehicle(
         'United Late': 'z1980_Leyland_Olympian_ECW_(United_Late)_32bpp.png',
     }),
     misc_flags=RoadVehicle.Flags.USE_2CC,
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1980, 1, 1),
     vehicle_life=8,
@@ -273,7 +270,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=0,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Leyland',
     }),
 )
@@ -286,7 +283,7 @@ RoadVehicle(
         'Arriva': 'z1999_Volvo_B7L_Wright_Eclipse_(Arriva)_32bpp.png',
         'Arriva Late': 'z1999_Volvo_B7L_Wright_Eclipse_(Arriva_Late)_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1999, 1, 1),
     vehicle_life=8,
@@ -299,7 +296,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=0,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Volvo',
     }),
 )
@@ -311,7 +308,7 @@ RoadVehicle(
         'White': 't2008_Volvo_B7RLE_Wright_Eclipse_2_32bpp.png',
         'Arriva Late': 'z2008_Volvo_B7RLE_Wright_Eclipse_2_(Arriva_Late)_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(2008, 1, 1),
     vehicle_life=8,
@@ -324,7 +321,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=0,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Volvo',
     }),
 )
@@ -336,7 +333,7 @@ RoadVehicle(
         'White': 't2015_Volvo_B8RLE_Wright_Eclipse_3_32bpp.png',
         'East Coast Buses': 'z2015_Volvo_B8RLE_Wright_Eclipse_3_(East_Coast_Buses)_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(2015, 1, 1),
     vehicle_life=8,
@@ -349,7 +346,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=0,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Volvo',
     }),
 )
@@ -360,7 +357,7 @@ RoadVehicle(
     liveries = make_vox_liveries({
         'White': 't2001_Volvo_B7TL_Wright_Eclipse_Gemini_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(2001, 1, 1),
     vehicle_life=8,
@@ -373,7 +370,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=0,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Volvo',
     }),
 )
@@ -386,7 +383,7 @@ RoadVehicle(
         'Delta': 'z1962_Bristol_RE_(Delta)_32bpp.png',
         'Potteries Motor Traction': 'z1962_Bristol_RE_(Potteries_Motor_Traction)_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1962, 1, 1),
     vehicle_life=8,
@@ -399,7 +396,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=506,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Bristol',
     }),
 )
@@ -411,7 +408,7 @@ RoadVehicle(
         'White': 't1986_Leyland_Lynx_32bpp.png',
         'Cleveland Transit': 'z1986_Leyland_Lynx_(Cleveland_Transit)_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1986, 1, 1),
     vehicle_life=8,
@@ -424,7 +421,7 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=504,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Leyland',
     }),
 )
@@ -437,7 +434,7 @@ RoadVehicle(
         'Cleveland Transit': 'z1990_Leyland_Lynx_2_(Cleveland_Transit)_32bpp.png',
         'Tees And District Late': 'z1990_Leyland_Lynx_2_(Tees_And_District_Late)_32bpp.png',
     }),
-    max_speed=lib.kmhishph(104),
+    max_speed=RoadVehicle.kmhishph(104),
     power=255,
     introduction_date=date(1990, 1, 1),
     vehicle_life=8,
@@ -450,10 +447,9 @@ RoadVehicle(
     refittable_cargo_types=1,
     sound_effect=0x17,
     sort_purchase_list=504,
-    additional_text=lib.fake_info_text({
+    additional_text=grf.fake_vehicle_info({
         'Info': 'Leyland',
     }),
 )
 
-g.add(g.strings)
 g.write('robs_british_busses.grf')
